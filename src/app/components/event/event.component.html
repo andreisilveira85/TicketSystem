@@ -1,0 +1,89 @@
+<div class="flex min-h-screen bg-gray-800 text-gray-400">
+
+  <div class="w-1/2 p-8 flex flex-col justify-between">
+    <div class="filter-container bg-gray-900 p-8 rounded-lg shadow-lg h-full border border-gray-700">
+      <form (ngSubmit)="applyFilters()" class="space-y-6">
+        <div class="flex flex-col">
+          <label for="name" class="font-semibold text-gray-300 text-lg mb-2">Event Name:</label>
+          <input type="text" id="name" [(ngModel)]="filters.name" name="name" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="category" class="font-semibold text-gray-300 text-lg mb-2">Category:</label>
+          <input type="text" id="category" [(ngModel)]="filters.category" name="category" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="status" class="font-semibold text-gray-300 text-lg mb-2">Status:</label>
+          <input type="text" id="status" [(ngModel)]="filters.status" name="status" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="startTimeAfter" class="font-semibold text-gray-300 text-lg mb-2">Start Time After:</label>
+          <input type="datetime-local" id="startTimeAfter" [(ngModel)]="filters.startTimeAfter" name="startTimeAfter"
+            class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="startTimeBefore" class="font-semibold text-gray-300 text-lg mb-2">Start Time Before:</label>
+          <input type="datetime-local" id="startTimeBefore" [(ngModel)]="filters.startTimeBefore" name="startTimeBefore"
+            class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="minPrice" class="font-semibold text-gray-300 text-lg mb-2">Minimum Price:</label>
+          <input type="number" id="minPrice" [(ngModel)]="filters.minPrice" name="minPrice" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="maxPrice" class="font-semibold text-gray-300 text-lg mb-2">Maximum Price:</label>
+          <input type="number" id="maxPrice" [(ngModel)]="filters.maxPrice" name="maxPrice" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <div class="flex flex-col">
+          <label for="location" class="font-semibold text-gray-300 text-lg mb-2">Location:</label>
+          <input type="text" id="location" [(ngModel)]="filters.location" name="location" class="p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          bg-gray-800 text-gray-100 transition-transform duration-300 ease-in-out">
+        </div>
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-indigo-500 to-teal-500 text-white py-3 rounded-lg 
+                                     hover:from-indigo-600 hover:to-teal-600 transition duration-300 font-bold text-lg shadow-md">
+          Apply Filters
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="w-1/2 p-8 flex flex-col justify-between">
+    <div class="event-list flex-grow">
+      <div class="grid grid-cols-1 gap-6">
+        <div
+          class="card bg-gray-900 shadow-lg rounded-xl overflow-hidden transition-transform transform hover:scale-105"
+          *ngFor="let event of events | paginate: { itemsPerPage: 3, currentPage: p }">
+          <div class="card-body p-6">
+            <h5 class="card-title text-3xl font-bold text-gray-100 mb-4">{{ event.name }}</h5>
+            <p class="card-text text-gray-300 mb-6">{{ event.description }}</p>
+            <div class="text-gray-500 mb-6">
+              <p><span class="font-semibold">Location:</span> {{ event.location }}</p>
+              <p><span class="font-semibold">Category:</span> {{ event.category }}</p>
+              <p><span class="font-semibold">Price:</span> {{ event.price | currency }}</p>
+            </div>
+            <button
+              class="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 rounded-lg 
+                              hover:from-teal-600 hover:to-cyan-600 transition duration-300 font-bold text-lg shadow-md">
+              Buy Tickets
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 flex justify-center items-center space-x-6">
+      <button
+        class="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition duration-300 shadow-md w-32"
+        (click)="p = p > 1 ? p - 1 : 1">Previous</button>
+      <span class="px-4 py-2 bg-gray-800 text-gray-100 rounded-lg font-semibold text-lg shadow-md">Page {{ p
+        }}</span>
+      <button
+        class="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition duration-300 shadow-md w-32"
+        (click)="p = p + 1">Next</button>
+    </div>
+  </div>

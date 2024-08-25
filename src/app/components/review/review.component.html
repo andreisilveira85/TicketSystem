@@ -1,0 +1,39 @@
+<div class="min-h-screen flex items-start justify-center bg-gray-800 text-gray-400 pt-12">
+    <div class="max-w-4xl w-full p-8 bg-gray-900 shadow-lg rounded-lg">
+        <h2 class="text-3xl font-bold mb-6 text-center text-gray-100">Your review</h2>
+        <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <div class="form-group mb-4">
+                <label for="name" class="block text-gray-300 text-lg font-bold mb-2">Name</label>
+                <input type="text" id="name" name="name" ngModel required placeholder="Your name"
+                    class="p-4 border border-gray-600 rounded-lg w-full text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 ease-in-out">
+            </div>
+            <div class="form-group mb-4">
+                <label for="subject" class="block text-gray-300 text-lg font-bold mb-2">Event</label>
+                <input type="text" id="subject" name="subject" ngModel required placeholder="Subject"
+                    class="p-4 border border-gray-600 rounded-lg w-full text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 ease-in-out">
+            </div>
+            <div class="form-group mb-4">
+                <label for="rating" class="block text-gray-300 text-lg font-bold mb-2">Rating</label>
+                <div class="flex space-x-2 text-4xl">
+                    <span class="cursor-pointer text-gray-400" [ngClass]="{'text-yellow-400': rating >= 1}" (click)="setRating(1)">&#9733;</span>
+                    <span class="cursor-pointer text-gray-400" [ngClass]="{'text-yellow-400': rating >= 2}" (click)="setRating(2)">&#9733;</span>
+                    <span class="cursor-pointer text-gray-400" [ngClass]="{'text-yellow-400': rating >= 3}" (click)="setRating(3)">&#9733;</span>
+                    <span class="cursor-pointer text-gray-400" [ngClass]="{'text-yellow-400': rating >= 4}" (click)="setRating(4)">&#9733;</span>
+                    <span class="cursor-pointer text-gray-400" [ngClass]="{'text-yellow-400': rating >= 5}" (click)="setRating(5)">&#9733;</span>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <label for="message" class="block text-gray-300 text-lg font-bold mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" ngModel required placeholder="Your message"
+                    class="p-4 border border-gray-600 rounded-lg w-full text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 ease-in-out"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-teal-500 text-white py-3 rounded-lg 
+                                         hover:from-indigo-600 hover:to-teal-600 transition duration-300 font-bold text-lg shadow-md"
+                [disabled]="!contactForm.valid">Send your review</button>
+        </form>
+        <div *ngIf="formSubmitted" class="form-alert mt-6 p-4 bg-green-100 text-green-800 rounded">
+            <p>We have received your review, thanks for your time!</p>
+        </div>
+    </div>
+</div>
+
